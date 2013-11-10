@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry combineaccessrules="false" kind="src" path="/Minecraft"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/SlimevoidLibrary"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/LittleBlocks-FML"/>
+	<classpathentry kind="lib" path="/Minecraft/jars/bin/lwjgl.jar"/>
+	<classpathentry kind="src" path="common"/>
+	<classpathentry kind="src" path="resources"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/Minecraft/lib/guava-14.0-rc3.jar" sourcepath="/Minecraft/lib/guava-14.0-rc3-sources.jar"/>
+	<classpathentry kind="lib" path="/Minecraft/jars/bin/lwjgl_util.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
