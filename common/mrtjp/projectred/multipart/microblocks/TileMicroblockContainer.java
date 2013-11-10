@@ -36,7 +36,7 @@ public class TileMicroblockContainer extends TileEntity implements IMicroblockSu
 
 	@Override
 	public void onDataPacket(INetworkManager net, Packet132TileEntityData pkt) {
-		cover.readDescriptionBytes(pkt.customParam1.getByteArray("C"), 0);
+		cover.readDescriptionBytes(pkt.data.getByteArray("C"), 0);
 	}
 
 	@Override

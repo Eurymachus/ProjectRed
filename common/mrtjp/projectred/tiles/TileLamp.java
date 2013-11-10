@@ -149,7 +149,7 @@ public class TileLamp extends TileEntity implements IRedstoneUpdatable {
 	@Override
 	public void onDataPacket(INetworkManager net, Packet132TileEntityData pkt)
 	{
-		readFromNBT(pkt.customParam1);
+		readFromNBT(pkt.data);
 	}
 	
 	private boolean isBeingPowered() {

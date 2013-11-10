@@ -43,14 +43,14 @@ public abstract class TileCoverableBase extends TileEntity implements IMicrobloc
 			return null;
 
 		Packet132TileEntityData p = new Packet132TileEntityData(xCoord, yCoord, zCoord, 0, new NBTTagCompound());
-		p.customParam1.setByteArray("C", cover.writeDescriptionBytes());
+		p.data.setByteArray("C", cover.writeDescriptionBytes());
 		return p;
 	}
 
 	@Override
 	public void onDataPacket(INetworkManager net, Packet132TileEntityData pkt) {
 		if (cover != null)
-			cover.readDescriptionBytes(pkt.customParam1.getByteArray("C"), 0);
+			cover.readDescriptionBytes(pkt.data.getByteArray("C"), 0);
 	}
 
 	@Override

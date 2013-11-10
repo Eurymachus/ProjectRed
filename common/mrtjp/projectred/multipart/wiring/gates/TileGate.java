@@ -68,31 +68,31 @@ public class TileGate extends TileCoverableBase implements IRedstoneUpdatable, I
 		}
 
 		Packet132TileEntityData p = new Packet132TileEntityData(xCoord, yCoord, zCoord, 0, new NBTTagCompound());
-		p.customParam1.setByteArray("c", getCoverSystem().writeDescriptionBytes());
-		p.customParam1.setByte("t", (byte) (type.ordinal() | (flipped ? 0x80 : 0)));
-		p.customParam1.setByte("s", side);
-		p.customParam1.setByte("f", front);
-		p.customParam1.setShort("r", (short) prevRenderState);
+		p.data.setByteArray("c", getCoverSystem().writeDescriptionBytes());
+		p.data.setByte("t", (byte) (type.ordinal() | (flipped ? 0x80 : 0)));
+		p.data.setByte("s", side);
+		p.data.setByte("f", front);
+		p.data.setShort("r", (short) prevRenderState);
 		if (pointer != null) {
-			p.customParam1.setShort("p", (short) pointer.getPointerPosition());
-			p.customParam1.setFloat("P", pointer.getPointerSpeed());
+			p.data.setShort("p", (short) pointer.getPointerPosition());
+			p.data.setFloat("P", pointer.getPointerSpeed());
 		}
 		return p;
 	}
 
 	@Override
 	public void onDataPacket(INetworkManager net, Packet132TileEntityData pkt) {
-		getCoverSystem().readDescriptionBytes(pkt.customParam1.getByteArray("c"), 0);
-		type = EnumGate.VALUES[pkt.customParam1.getByte("t") & 0x7F];
-		side = pkt.customParam1.getByte("s");
-		front = pkt.customParam1.getByte("f");
-		flipped = (pkt.customParam1.getByte("t") & 0x80) != 0;
+		getCoverSystem().readDescriptionBytes(pkt.data.getByteArray("c"), 0);
+		type = EnumGate.VALUES[pkt.data.getByte("t") & 0x7F];
+		side = pkt.data.getByte("s");
+		front = pkt.data.getByte("f");
+		flipped = (pkt.data.getByte("t") & 0x80) != 0;
 
-		prevRenderState = pkt.customParam1.getShort("r") & 0xFFFFF;
+		prevRenderState = pkt.data.getShort("r") & 0xFFFFF;
 
-		if (pkt.customParam1.hasKey("p")) {
-			pointerPos = pkt.customParam1.getShort("p");
-			pointerSpeed = pkt.customParam1.getFloat("P");
+		if (pkt.data.hasKey("p")) {
+			pointerPos = pkt.data.getShort("p");
+			pointerSpeed = pkt.data.getFloat("P");
 		}
 
 		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);

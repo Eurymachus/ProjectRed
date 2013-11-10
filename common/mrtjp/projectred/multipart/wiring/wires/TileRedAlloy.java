@@ -16,6 +16,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatMessageComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 
@@ -291,8 +292,8 @@ public class TileRedAlloy extends TileWire implements IRedstoneEmitter, IRedston
 		super.onDataPacket(net, pkt);
 
 		if (syncSignalStrength) {
-			strength = pkt.customParam1.getShort("_str");
-			strengthFromNonWireBlocks = pkt.customParam1.getShort("_snwb");
+			strength = pkt.data.getShort("_str");
+			strengthFromNonWireBlocks = pkt.data.getShort("_snwb");
 		}
 
 		// The server will only send an update for the first piece of alloy wire
@@ -309,8 +310,8 @@ public class TileRedAlloy extends TileWire implements IRedstoneEmitter, IRedston
 	public Packet132TileEntityData getDescriptionPacket() {
 		Packet132TileEntityData p = super.getDescriptionPacket();
 		if (syncSignalStrength) {
-			p.customParam1.setShort("_str", strength);
-			p.customParam1.setShort("_snwb", strengthFromNonWireBlocks);
+			p.data.setShort("_str", strength);
+			p.data.setShort("_snwb", strengthFromNonWireBlocks);
 		}
 		return p;
 	}
@@ -480,7 +481,7 @@ public class TileRedAlloy extends TileWire implements IRedstoneEmitter, IRedston
 
 	@Override
 	protected boolean debug(EntityPlayer ply) {
-		ply.sendChatToPlayer((worldObj.isRemote ? "Client" : "Server") + " signal strength: " + strength + ", nwb: " + strengthFromNonWireBlocks);
+		ply.sendChatToPlayer(ChatMessageComponent.createFromText((worldObj.isRemote ? "Client" : "Server") + " signal strength: " + strength + ", nwb: " + strengthFromNonWireBlocks));
 		
 		super.debug(ply);
 		return true;

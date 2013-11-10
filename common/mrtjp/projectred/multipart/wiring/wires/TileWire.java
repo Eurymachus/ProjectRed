@@ -273,19 +273,19 @@ public abstract class TileWire extends TileCoverableBase implements IConnectable
 
 	@Override
 	public void onDataPacket(INetworkManager net, Packet132TileEntityData pkt) {
-		if (pkt.customParam1.getBoolean("invalid"))
+		if (pkt.data.getBoolean("invalid"))
 			return;
 
-		wireType = EnumWire.VALUES[pkt.customParam1.getByte("t")];
-		wireMask = pkt.customParam1.getByte("m");
+		wireType = EnumWire.VALUES[pkt.data.getByte("t")];
+		wireMask = pkt.data.getByte("m");
 
-		getCoverSystem().readDescriptionBytes(pkt.customParam1.getByteArray("c"), 0);
+		getCoverSystem().readDescriptionBytes(pkt.data.getByteArray("c"), 0);
 
-		connectMaskCache = pkt.customParam1.getInteger("C");
-		connectCornerCache = pkt.customParam1.getInteger("C2");
+		connectMaskCache = pkt.data.getInteger("C");
+		connectCornerCache = pkt.data.getInteger("C2");
 
-		if (containsJacketed = pkt.customParam1.hasKey("j"))
-			jacketConnectMaskCache = pkt.customParam1.getByte("j");
+		if (containsJacketed = pkt.data.hasKey("j"))
+			jacketConnectMaskCache = pkt.data.getByte("j");
 
 		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 	}

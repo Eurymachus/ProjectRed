@@ -18,6 +18,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import net.minecraft.util.StringTranslate;
 import net.minecraft.world.World;
 
@@ -163,7 +164,7 @@ public class MicroblockLibrary implements IMicroblockLibrary {
 					Set<String> names = Sets.newHashSet();
 					for (int meta = 0; meta < 16; meta++) {
 						ItemStack is = new ItemStack(b, 1, meta);
-						if (!Strings.isNullOrEmpty(is.getItemName()) && names.add(is.getItemName())) {
+						if (!Strings.isNullOrEmpty(is.getUnlocalizedName()) && names.add(is.getUnlocalizedName())) {
 							this.addCuttableBlock(b, meta);
 						}
 					}
@@ -203,7 +204,7 @@ public class MicroblockLibrary implements IMicroblockLibrary {
 
 	private static String getItemDisplayName(int itemID, int meta) {
 		String nameKey = Item.itemsList[itemID].getUnlocalizedName(new ItemStack(itemID, 1, meta)) + ".name";
-		String name = StringTranslate.getInstance().translateKey(nameKey);
+		String name = StatCollector.translateToLocal(nameKey);
 
 		if (name.equals(nameKey) || name.equals("")) {
 			name = LanguageRegistry.instance().getStringLocalization(nameKey);
